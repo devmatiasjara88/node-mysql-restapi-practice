@@ -1,0 +1,79 @@
+//npm init -y
+//npm i express
+
+//package.json -> "type": "module",  con esto voy a poder crear modules o importar modulos
+
+// ---levantar un server---
+
+import express from "express";
+const app = express();
+app.listen(3000)
+
+
+// Instalar nodemon
+// npm i nodemon -D // modo desarrollo
+// package.json
+// "scripts": {
+//     "dev": "nodemon index.js"
+//   },
+// npm run dev // inicia bajo el script de nodemon por lo cual estará constantemente escuchando los cambios
+
+**** RUTAS ***
+index.js
+app.get('/employees', (req, res) => res.send('Obteniendo empleados'));
+app.post('/employees', (req, res) => res.send('Creando empleados'));
+app.put('/employees', (req, res) => res.send('Actualizar empleados'));
+app.delete('/employees', (req, res) => res.send('Eliminar empleados'));
+
+mysql en docker
+// docker run -d -p 33060:3306 --name mysql-db -e MYSQL_ROOT_PASSWORD=Mattacar88@ mysql
+// docker exec -it mysql-db mysql -p
+// show databases;
+// CREATE DATABASE IF NOT EXISTS companydb;
+// USE companydb;
+// CREATE TABLE employee (
+//     id INT(11) NOT NULL AUTO_INCREMENT,
+//     name VARCHAR(45) DEFAULT NULL,
+//     salary INT DEFAULT NULL,
+//     PRIMARY KEY (id)
+// );
+// SHOW tables;
+// DESCRIBE employee;
+
+// llamar a la base de datos archivos db.js
+// import {createPool} from 'mysql2/promise';
+// export const pool = createPool({
+//     host: 'localhost',
+//     user: 'root',
+//     password: 'Mattacar88@',
+//     port: 33060,
+//     database: 'companydb'
+// })
+
+VARIABLES DE ENTORNO
+npm i dotenv
+
+**EVITAR CORS
+
+npm install cors
+
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+// Configurar opciones CORS
+const corsOptions = {
+  origin: 'http://localhost:3000', // Reemplaza con la URL de tu frontend
+  optionsSuccessStatus: 200 // Configura el código de estado de respuesta exitosa
+};
+
+// Aplicar opciones CORS a todas las rutas
+app.use(cors(corsOptions));
+
+// Resto de la configuración y rutas de tu aplicación...
+
+// Iniciar el servidor
+app.listen(3000, () => {
+  console.log('Servidor escuchando en el puerto 3000');
+});
